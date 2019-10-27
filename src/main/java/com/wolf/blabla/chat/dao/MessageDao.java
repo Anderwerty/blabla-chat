@@ -1,6 +1,6 @@
 package com.wolf.blabla.chat.dao;
 
-import com.wolf.blabla.chat.entity.Message;
+import com.wolf.blabla.chat.entity.MessageEntity;
 
-public interface MessageDao extends CrudDao<Message,Long> {
+public interface MessageDao extends CrudDao<MessageEntity,Long> {
 }

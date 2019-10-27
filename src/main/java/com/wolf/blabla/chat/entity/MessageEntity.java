@@ -1,9 +1,9 @@
 package com.wolf.blabla.chat.entity;
 
-public class Message {
+public class MessageEntity {
     private Long id;
-    private Topic topic;
-    private User author;
+    private TopicEntity topicEntity;
+    private UserEntity author;
     private String messageTitle;
     private String context;
 }

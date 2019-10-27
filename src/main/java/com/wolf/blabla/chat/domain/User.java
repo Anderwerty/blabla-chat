@@ -1,6 +1,5 @@
-package com.wolf.blabla.chat.entity;
+package com.wolf.blabla.chat.domain;
 
-import java.util.List;
 import java.util.Set;
 
 public class User {
@@ -10,7 +9,6 @@ public class User {
     private final String email;
     private final String password;
     private final Set<Role> roles;
-    private final List<Message> messages;
 
     private User(Builder builder) {
         this.id = builder.id;
@@ -19,11 +17,22 @@ public class User {
         this.email = builder.email;
         this.password = builder.password;
         this.roles = builder.roles;
-        this.messages = builder.messages;
     }
 
     public static Builder builder() {
         return new Builder();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 
     public Long getId() {
@@ -50,10 +59,6 @@ public class User {
         return roles;
     }
 
-    public List<Message> getMessages() {
-        return messages;
-    }
-
     public static class Builder {
         private Long id;
         private String name;
@@ -61,7 +66,6 @@ public class User {
         private String email;
         private String password;
         private Set<Role> roles;
-        private List<Message> messages;
 
         private Builder() {
         }
@@ -93,11 +97,6 @@ public class User {
 
         public Builder withRoles(Set<Role> roles) {
             this.roles = roles;
-            return this;
-        }
-
-        public Builder withMessages(List<Message> messages) {
-            this.messages = messages;
             return this;
         }
 

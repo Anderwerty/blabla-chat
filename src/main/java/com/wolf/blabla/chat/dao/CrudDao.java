@@ -6,7 +6,7 @@ import java.util.Set;
 
 public interface CrudDao<E, ID> {
     //creat
-    E save(E entity);
+    void save(E entity);
 
     //read
     Optional<E> findById(ID id);

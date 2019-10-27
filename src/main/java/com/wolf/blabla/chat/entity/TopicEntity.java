@@ -3,19 +3,19 @@ package com.wolf.blabla.chat.entity;
 import java.util.List;
 import java.util.Set;
 
-public class Topic {
+public class TopicEntity {
     private final Long id;
-    private final User author;
+    private final UserEntity author;
     private final String title;
-    private final Set<User> members;
-    private final List<Message> messages;
+    private final Set<UserEntity> members;
+    private final List<MessageEntity> messageEntities;
 
-    private Topic(Builder builder) {
+    private TopicEntity(Builder builder) {
         this.id = builder.id;
         this.author = builder.author;
         this.title = builder.title;
         this.members = builder.members;
-        this.messages = builder.messages;
+        this.messageEntities = builder.messageEntities;
     }
 
     public static Builder builder() {
@@ -26,7 +26,7 @@ public class Topic {
         return id;
     }
 
-    public User getAuthor() {
+    public UserEntity getAuthor() {
         return author;
     }
 
@@ -34,20 +34,20 @@ public class Topic {
         return title;
     }
 
-    public Set<User> getMembers() {
+    public Set<UserEntity> getMembers() {
         return members;
     }
 
-    public List<Message> getMessages() {
-        return messages;
+    public List<MessageEntity> getMessageEntities() {
+        return messageEntities;
     }
 
     public static class Builder {
         private Long id;
-        private User author;
+        private UserEntity author;
         private String title;
-        private Set<User> members;
-        private List<Message> messages;
+        private Set<UserEntity> members;
+        private List<MessageEntity> messageEntities;
 
         private Builder() {
         }
@@ -57,7 +57,7 @@ public class Topic {
             return this;
         }
 
-        public Builder withAuthor(User author) {
+        public Builder withAuthor(UserEntity author) {
             this.author = author;
             return this;
         }
@@ -67,18 +67,18 @@ public class Topic {
             return this;
         }
 
-        public Builder withMembers(Set<User> members) {
+        public Builder withMembers(Set<UserEntity> members) {
             this.members = members;
             return this;
         }
 
-        public Builder withMessages(List<Message> messages) {
-            this.messages = messages;
+        public Builder withMessages(List<MessageEntity> messageEntities) {
+            this.messageEntities = messageEntities;
             return this;
         }
 
-        public Topic build() {
-            return new Topic(this);
+        public TopicEntity build() {
+            return new TopicEntity(this);
         }
     }
 }

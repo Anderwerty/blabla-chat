@@ -1,83 +1,54 @@
 package com.wolf.blabla.chat.dao.impl;
 
 import com.wolf.blabla.chat.dao.DBConnector;
-import com.wolf.blabla.chat.dao.DataBaseRuntimeException;
 import com.wolf.blabla.chat.dao.UserDao;
-import com.wolf.blabla.chat.entity.User;
-import org.apache.log4j.Logger;
+import com.wolf.blabla.chat.entity.UserEntity;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
-public class UserDaoImpl extends AbstractCrudDaoImpl<User> implements UserDao {
-    private static final Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
+public class UserDaoImpl extends AbstractCrudDaoImpl<UserEntity> implements UserDao {
 
-    private static final String FIND_BY_EMAIL_QUERY = "SELECT * from users WHERE email = ?";
-    private static final String FIND_BY_ID_QUERY = "SELECT * from users WHERE id = ?";
+    private static final String SAVE_QUERY = "INSERT INTO users (name, surname,email,password) values(?, ?, ?, ?)";
+    private static final String FIND_BY_ID_QUERY = "SELECT * FROM users WHERE id = ?";
+    private static final String FIND_ALL_QUERY = "SELECT * FROM users";
+    private static final String UPDATE_QUERY = "UPDATE users SET name =?, surname=?, email=?, password=? WHERE id = ?";
+    private static final String DELETE_BY_ID_QUERY = "UNSUPPORTED";
+    private static final String FIND_BY_EMAIL_QUERY = "SELECT * FROM users WHERE email = ?";
 
     public UserDaoImpl(DBConnector connector) {
-        super(connector);
+        super(connector, SAVE_QUERY, FIND_BY_ID_QUERY, FIND_ALL_QUERY, UPDATE_QUERY, DELETE_BY_ID_QUERY);
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
-        try (Connection connection = connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_EMAIL_QUERY)) {
-            preparedStatement.setString(1, email);
-            final ResultSet resultSet = preparedStatement.executeQuery();
-
-            return mapResultSetToEntity(resultSet);
-        } catch (SQLException e) {
-            LOGGER.error("");
-            throw new DataBaseRuntimeException(e);
-        }
-
+    public Optional<UserEntity> findByEmail(String email) {
+        return findByStringParam(email, FIND_BY_EMAIL_QUERY);
     }
 
     @Override
-    public User save(User entity) {
-        return null;
+    protected UserEntity mapResultSetToEntity(ResultSet resultSet) throws SQLException {
+        return UserEntity.builder()
+                .withId(resultSet.getLong("id"))
+                .withName(resultSet.getString("name"))
+                .withSurname(resultSet.getString("surname"))
+                .withEmail(resultSet.getString("email"))
+                .withPassword(resultSet.getString("password"))
+                .build();
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return findById(id, FIND_BY_ID_QUERY);
+    protected void insert(PreparedStatement preparedStatement, UserEntity entity) throws SQLException {
+        preparedStatement.setString(1, entity.getName());
+        preparedStatement.setString(2, entity.getSurname());
+        preparedStatement.setString(3, entity.getEmail());
+        preparedStatement.setString(4, entity.getPassword());
     }
 
     @Override
-    public List<User> findAll() {
-        return null;
-    }
-
-    @Override
-    public void update(User entity) {
-
-    }
-
-    @Override
-    public void deleteById(Long id) {
-
-    }
-
-    @Override
-    public void deleteAllByIds(Set<Long> longs) {
-
-    }
-
-    protected Optional<User> mapResultSetToEntity(ResultSet resultSet) throws SQLException {
-        return resultSet.next() ?
-                Optional.ofNullable(User.builder()
-                        .withId(resultSet.getLong("id"))
-                        .withName(resultSet.getString("name"))
-                        .withSurname(resultSet.getString("surname"))
-                        .withEmail(resultSet.getString("email"))
-                        .withPassword(resultSet.getString("password"))
-                        .build())
-                : Optional.empty();
+    protected void updateValues(PreparedStatement preparedStatement, UserEntity entity) throws SQLException {
+        insert(preparedStatement, entity);
+        preparedStatement.setLong(5, entity.getId());
     }
 }

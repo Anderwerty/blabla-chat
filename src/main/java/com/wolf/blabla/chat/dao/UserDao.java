@@ -1,10 +1,10 @@
 package com.wolf.blabla.chat.dao;
 
-import com.wolf.blabla.chat.entity.User;
+import com.wolf.blabla.chat.entity.UserEntity;
 
 import java.util.Optional;
 
-public interface UserDao extends CrudDao<User, Long> {
-    Optional<User> findByEmail(String email);
+public interface UserDao extends CrudDao<UserEntity, Long> {
+    Optional<UserEntity> findByEmail(String email);
 
 }

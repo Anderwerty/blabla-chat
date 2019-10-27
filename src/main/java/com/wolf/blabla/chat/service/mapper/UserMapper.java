@@ -3,6 +3,7 @@ package com.wolf.blabla.chat.service.mapper;
 import com.wolf.blabla.chat.domain.Role;
 import com.wolf.blabla.chat.domain.User;
 import com.wolf.blabla.chat.entity.UserEntity;
+import com.wolf.blabla.chat.service.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -10,6 +11,13 @@ import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toSet;
 
 public class UserMapper {
+
+    private final PasswordEncoder passwordEncoder;
+
+    public UserMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public User mapUserEntityToUser(UserEntity userEntity) {
         return User.builder()
                 .withId(userEntity.getId())
@@ -30,7 +38,7 @@ public class UserMapper {
                 .withName(user.getName())
                 .withSurname(user.getSurname())
                 .withEmail(user.getEmail())
-                .withPassword(user.getPassword())
+                .withPassword(passwordEncoder.encode(user.getPassword()))
                 .withRoles(Optional.ofNullable(user.getRoles()).orElse(emptySet()).stream()
                         .map(Enum::name)
                         .map(com.wolf.blabla.chat.entity.Role::valueOf)

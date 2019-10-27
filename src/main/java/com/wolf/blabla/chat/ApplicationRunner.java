@@ -4,6 +4,7 @@ import com.wolf.blabla.chat.dao.DBConnector;
 import com.wolf.blabla.chat.dao.UserDao;
 import com.wolf.blabla.chat.dao.impl.UserDaoImpl;
 import com.wolf.blabla.chat.entity.UserEntity;
+import com.wolf.blabla.chat.service.PasswordEncoder;
 import com.wolf.blabla.chat.service.UserService;
 import com.wolf.blabla.chat.service.impl.UserServiceImpl;
 import com.wolf.blabla.chat.service.mapper.UserMapper;
@@ -14,7 +15,7 @@ public class ApplicationRunner {
         DBConnector connector = new DBConnector("database");
         UserDao userDao = new UserDaoImpl(connector);
 
-        final UserService userService = new UserServiceImpl(userDao, new UserMapper(), new UserValidator());
+        final UserService userService = new UserServiceImpl(userDao, new UserMapper(new PasswordEncoder()), new UserValidator());
 
         final UserEntity userEntity = userDao.findByEmail("alex@gmail.com").orElse(null);
 

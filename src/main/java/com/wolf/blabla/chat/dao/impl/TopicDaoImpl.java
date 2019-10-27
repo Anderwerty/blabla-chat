@@ -27,7 +27,7 @@ public class TopicDaoImpl extends AbstractCrudDaoImpl<TopicEntity> implements To
     }
 
     @Override
-    public List<TopicEntity> findByAuthor(String author) {
+    public List<TopicEntity> findByAuthor(Long authorId) {
         return null;
     }
 

@@ -2,14 +2,13 @@ package com.wolf.blabla.chat.service;
 
 import com.wolf.blabla.chat.domain.Message;
 import com.wolf.blabla.chat.domain.Topic;
+import com.wolf.blabla.chat.domain.User;
 
 import java.util.List;
 
 public interface MessageService {
 
-    void createTopic(Topic topic);
+    List<Topic> createTopic(Topic topic, User user);
 
-    void addMembersToTpiC(Long topicId, List<Long> userIds);
-
-    void sendMessage(Message message);
+    void sendMessage(Message message, Topic topic, User user);
 }

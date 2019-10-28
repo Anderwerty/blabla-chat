@@ -8,4 +8,6 @@ public interface TopicDao extends CrudDao<TopicEntity, Long> {
     List<TopicEntity> findByTitle(String title);
 
     List<TopicEntity> findByAuthor(Long authorId);
+
+//    List<TopicEntity> findByAuthor(Long authorId, Page page);
 }

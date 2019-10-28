@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 
 public class PasswordEncoderTest {
 
@@ -15,6 +16,7 @@ public class PasswordEncoderTest {
         final String expected = "password";
 
         assertThat(actual, is(expected));
+//        assertEquals("is ",expected, null);
     }
 
 }

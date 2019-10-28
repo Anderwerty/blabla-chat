@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     public User login(String email, String password) {
         return userDao.findByEmail(email)
                 .map(userMapper::mapUserEntityToUser)
-                .filter(x -> Objects.equals(x.getEmail(), password))
+                .filter(x -> Objects.equals(x.getPassword(), password))
                 .orElseThrow(() -> new EntityNotFoundException(401));
     }
 

@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 
 public class UserValidator implements Validator<User> {
 
-    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
+    private static final Pattern EMAIL_PATTERN =
+            Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
 
     @Override
     public void validate(User entity) {

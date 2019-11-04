@@ -25,10 +25,10 @@ public class UserMapper {
                 .withSurname(userEntity.getSurname())
                 .withEmail(userEntity.getEmail())
                 .withPassword(userEntity.getPassword())
-                .withRoles(Optional.ofNullable(userEntity.getRoles()).orElse(emptySet()).stream()
-                        .map(Enum::name)
-                        .map(Role::valueOf)
-                        .collect(toSet()))
+//                .withRoles(Optional.ofNullable(userEntity.getRoles()).orElse(emptySet()).stream()
+//                        .map(Enum::name)
+//                        .map(Role::valueOf)
+//                        .collect(toSet()))
                 .build();
     }
 

@@ -37,6 +37,8 @@ public class UserServiceImpl implements UserService {
                 .map(userMapper::mapUserEntityToUser)
                 .filter(x -> Objects.equals(x.getPassword(), password))
                 .orElseThrow(() -> new EntityNotFoundException(401));
+        //AuthorisationFailException
+        //?
     }
 
     @Override

@@ -3,7 +3,8 @@ package com.wolf.blabla.chat.dao.impl;
 import com.wolf.blabla.chat.dao.CrudDao;
 import com.wolf.blabla.chat.dao.DBConnector;
 import com.wolf.blabla.chat.dao.DataBaseRuntimeException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E, Long> {
-    private static final Logger LOGGER = Logger.getLogger(AbstractCrudDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCrudDaoImpl.class);
     private static final BiConsumer<PreparedStatement, String> STING_CONSUMER
             = (PreparedStatement pr, String param) -> {
         try {
@@ -60,7 +61,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E, Long> {
             insert(preparedStatement, entity);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error("Insertion is failed", e);
+//            LOGGER.error("Insertion is failed", e);
             throw new DataBaseRuntimeException("Insertion is failed", e);
         }
     }
@@ -82,7 +83,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E, Long> {
                 return entities;
             }
         } catch (SQLException e) {
-            LOGGER.error("");
+//            LOGGER.error("");
             throw new DataBaseRuntimeException(e);
         }
     }
@@ -96,7 +97,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E, Long> {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error("Update is failed", e);
+//            LOGGER.error("Update is failed", e);
             throw new DataBaseRuntimeException(e);
         }
     }
@@ -127,7 +128,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E, Long> {
                 return resultSet.next() ? Optional.ofNullable(mapResultSetToEntity(resultSet)) : Optional.empty();
             }
         } catch (SQLException e) {
-            LOGGER.error("");
+//            LOGGER.error("");
             throw new DataBaseRuntimeException(e);
         }
     }
